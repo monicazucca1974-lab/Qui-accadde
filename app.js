@@ -301,8 +301,8 @@ map.on("click", event => {
   explorePosition({ lat, lon, label: "il punto scelto sulla mappa" });
 });
 
-document.getElementById("infoButton").addEventListener("click", () => infoDialog.showModal());
-document.getElementById("closeDialog").addEventListener("click", () => infoDialog.close());
+document.getElementById("infoButton")?.addEventListener("click", () => infoDialog?.showModal());
+
 infoDialog.addEventListener("click", event => {
   if (event.target === infoDialog) infoDialog.close();
 });
