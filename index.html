@@ -1,56 +1,96 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Qui Accadde</title>
-<style>
-body{
-font-family:Arial,sans-serif;
-margin:0;
-background:#f4f4f4;
-text-align:center;
-}
-header{
-background:#1e3a8a;
-color:white;
-padding:20px;
-}
-main{
-padding:20px;
-}
-button{
-padding:15px 25px;
-font-size:18px;
-border:none;
-border-radius:10px;
-background:#2563eb;
-color:white;
-}
-#risultato{
-margin-top:20px;
-font-size:18px;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#173b73" />
+  <meta name="description" content="Qui Accadde: scopri la storia dei luoghi intorno a te." />
+  <title>Qui Accadde</title>
+
+  <link rel="preconnect" href="https://unpkg.com" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIINfQ3ynhOPRRJcUes1Eo4mEzpIJQxVJkM=" crossorigin="" />
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
+  <header class="app-header">
+    <div>
+      <p class="eyebrow">STORIA GEOLOCALIZZATA</p>
+      <h1>Qui Accadde</h1>
+      <p class="subtitle">Scopri cosa è successo nei luoghi intorno a te.</p>
+    </div>
+    <button id="infoButton" class="icon-button" type="button" aria-label="Informazioni">i</button>
+  </header>
 
-<header>
-<h1>Qui Accadde</h1>
-<p>Dove vivono i ricordi</p>
-</header>
+  <main>
+    <section class="search-panel" aria-label="Ricerca luogo">
+      <form id="searchForm" class="search-form">
+        <label class="sr-only" for="searchInput">Cerca città, monumento o indirizzo</label>
+        <input id="searchInput" type="search" placeholder="Cerca città, monumento o indirizzo…" autocomplete="off" />
+        <button type="submit">Cerca</button>
+      </form>
 
-<main>
-<button onclick="trova()">Cosa è successo qui?</button>
-<div id="risultato"></div>
-</main>
+      <button id="locateButton" class="primary-action" type="button">
+        <span aria-hidden="true">◎</span>
+        Usa la mia posizione
+      </button>
 
-<script>
-function trova(){
-document.getElementById("risultato").innerHTML=
-"Versione 1 dell'app. In futuro qui appariranno gli eventi storici del luogo in cui ti trovi.";
-}
-</script>
+      <p id="status" class="status" role="status">Premi il pulsante per iniziare.</p>
+    </section>
 
+    <section class="map-card" aria-label="Mappa">
+      <div id="map"></div>
+      <div class="map-attribution-note">Tocca un punto sulla mappa per esplorarlo.</div>
+    </section>
+
+    <section class="results-section" aria-labelledby="resultsTitle">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">NELLE VICINANZE</p>
+          <h2 id="resultsTitle">Luoghi e storie</h2>
+        </div>
+        <span id="resultCount" class="count-badge">0</span>
+      </div>
+
+      <div id="emptyState" class="empty-state">
+        <div class="empty-icon">⌛</div>
+        <h3>La storia è tutta intorno a te</h3>
+        <p>Consenti la posizione oppure cerca una località per vedere i punti di interesse storici vicini.</p>
+      </div>
+
+      <div id="results" class="results-grid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <dialog id="infoDialog">
+    <div class="dialog-content">
+      <button id="closeDialog" class="dialog-close" aria-label="Chiudi">×</button>
+      <h2>Come funziona</h2>
+      <p>Qui Accadde usa la posizione scelta per cercare su Wikipedia luoghi, personaggi ed eventi collegati alla zona.</p>
+      <p>I contenuti dipendono dalla disponibilità delle voci di Wikipedia e richiedono una connessione internet.</p>
+    </div>
+  </dialog>
+
+  <template id="cardTemplate">
+    <article class="history-card">
+      <div class="card-image-wrap">
+        <img class="card-image" alt="" loading="lazy" />
+        <span class="distance-badge"></span>
+      </div>
+      <div class="card-body">
+        <h3 class="card-title"></h3>
+        <p class="card-description"></p>
+        <div class="card-footer">
+          <button class="show-on-map" type="button">Mostra sulla mappa</button>
+          <a class="read-more" target="_blank" rel="noopener noreferrer">Leggi la storia</a>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="app.js"></script>
 </body>
 </html>

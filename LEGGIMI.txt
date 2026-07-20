@@ -1,0 +1,21 @@
+QUI ACCADDE — VERSIONE 2
+
+NOVITÀ
+- Usa la posizione GPS del telefono.
+- Cerca automaticamente luoghi vicini su Wikipedia.
+- Mostra immagini, descrizioni e distanza.
+- Permette di aprire la storia completa e Google Maps.
+
+COME PUBBLICARLA SU GITHUB DAL TELEFONO
+1. Apri il repository di Qui Accadde.
+2. Elimina o sostituisci i vecchi file index.html, style.css e app.js.
+3. Carica i tre nuovi file contenuti in questa cartella.
+4. Conferma con “Commit changes”.
+5. Attendi circa 1-3 minuti.
+6. Riapri il sito e aggiorna la pagina.
+7. Premi “Cosa è successo qui?” e consenti l’accesso alla posizione.
+
+IMPORTANTE
+La geolocalizzazione funziona su GitHub Pages perché utilizza HTTPS.
+I risultati provengono da Wikipedia e possono comprendere luoghi, edifici,
+personaggi o altri contenuti collegati geograficamente alla zona.

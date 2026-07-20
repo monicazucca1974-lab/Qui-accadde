@@ -1,0 +1,361 @@
+:root {
+  --navy: #173b73;
+  --blue: #2868d8;
+  --blue-light: #eaf2ff;
+  --ink: #172033;
+  --muted: #667085;
+  --surface: #ffffff;
+  --background: #f4f7fb;
+  --border: #d9e2ef;
+  --shadow: 0 10px 30px rgba(28, 55, 90, 0.10);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--background);
+}
+
+button, input { font: inherit; }
+
+button { cursor: pointer; }
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 30px 20px 34px;
+  color: white;
+  background:
+    radial-gradient(circle at 95% 0%, rgba(80, 140, 255, .50), transparent 34%),
+    linear-gradient(145deg, #102b59, #214f9d);
+}
+
+.app-header h1 {
+  margin: 4px 0 5px;
+  font-size: clamp(2.1rem, 9vw, 3.5rem);
+  line-height: 1;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  opacity: .85;
+}
+
+.subtitle {
+  max-width: 520px;
+  margin: 12px 0 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  opacity: .92;
+}
+
+.icon-button {
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255,255,255,.45);
+  border-radius: 50%;
+  color: white;
+  background: rgba(255,255,255,.12);
+  font-weight: 800;
+}
+
+main {
+  width: min(1080px, 100%);
+  margin: -15px auto 0;
+  padding: 0 14px 60px;
+}
+
+.search-panel,
+.map-card,
+.results-section {
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.search-panel {
+  position: relative;
+  z-index: 500;
+  padding: 15px;
+}
+
+.search-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+}
+
+.search-form input {
+  min-width: 0;
+  height: 48px;
+  padding: 0 14px;
+  border: 1px solid #cbd6e5;
+  border-radius: 12px;
+  outline: none;
+  color: var(--ink);
+  background: #fff;
+}
+
+.search-form input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(40,104,216,.14);
+}
+
+.search-form button,
+.primary-action {
+  border: 0;
+  border-radius: 12px;
+  color: white;
+  background: var(--blue);
+  font-weight: 750;
+}
+
+.search-form button { padding: 0 18px; }
+
+.primary-action {
+  width: 100%;
+  min-height: 49px;
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+.primary-action:disabled,
+.search-form button:disabled {
+  cursor: wait;
+  opacity: .65;
+}
+
+.status {
+  min-height: 20px;
+  margin: 10px 3px 0;
+  color: var(--muted);
+  font-size: .88rem;
+}
+
+.status.error { color: #b42318; }
+
+.map-card {
+  position: relative;
+  overflow: hidden;
+  margin-top: 14px;
+}
+
+#map {
+  height: min(54vh, 500px);
+  min-height: 340px;
+  background: #dfe8f4;
+}
+
+.map-attribution-note {
+  position: absolute;
+  z-index: 400;
+  right: 10px;
+  bottom: 25px;
+  padding: 6px 9px;
+  border-radius: 8px;
+  color: #344054;
+  background: rgba(255,255,255,.92);
+  font-size: .73rem;
+  box-shadow: 0 3px 12px rgba(0,0,0,.12);
+}
+
+.results-section {
+  margin-top: 14px;
+  padding: 18px 15px 22px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.section-heading .eyebrow { color: var(--blue); }
+
+.section-heading h2 {
+  margin: 3px 0 0;
+  font-size: 1.45rem;
+}
+
+.count-badge {
+  display: grid;
+  place-items: center;
+  min-width: 38px;
+  height: 38px;
+  padding: 0 10px;
+  border-radius: 999px;
+  color: var(--navy);
+  background: var(--blue-light);
+  font-weight: 800;
+}
+
+.empty-state {
+  padding: 35px 15px 30px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.empty-state h3 {
+  margin: 12px 0 7px;
+  color: var(--ink);
+}
+
+.empty-state p {
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.55;
+}
+
+.empty-icon { font-size: 2.2rem; }
+
+.results-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.history-card {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: white;
+}
+
+.card-image-wrap {
+  position: relative;
+  height: 180px;
+  background: linear-gradient(135deg, #dce8f8, #eef4fb);
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-image.is-placeholder {
+  object-fit: contain;
+  padding: 40px;
+  opacity: .35;
+}
+
+.distance-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 6px 9px;
+  border-radius: 999px;
+  color: white;
+  background: rgba(17, 36, 67, .85);
+  font-size: .75rem;
+  font-weight: 800;
+}
+
+.card-body { padding: 15px; }
+
+.card-title {
+  margin: 0 0 8px;
+  font-size: 1.15rem;
+}
+
+.card-description {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.card-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.card-footer button,
+.card-footer a {
+  flex: 1 1 140px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 750;
+}
+
+.show-on-map {
+  border: 1px solid #bfd0e8;
+  color: var(--navy);
+  background: white;
+}
+
+.read-more {
+  color: white;
+  background: var(--blue);
+}
+
+dialog {
+  width: min(500px, calc(100% - 28px));
+  padding: 0;
+  border: 0;
+  border-radius: 18px;
+  box-shadow: 0 24px 80px rgba(0,0,0,.28);
+}
+
+dialog::backdrop { background: rgba(11, 24, 45, .60); }
+
+.dialog-content {
+  position: relative;
+  padding: 27px 24px 22px;
+}
+
+.dialog-content h2 { margin-top: 0; }
+
+.dialog-content p {
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.dialog-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  border: 0;
+  color: #344054;
+  background: transparent;
+  font-size: 1.8rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+}
+
+.leaflet-popup-content-wrapper { border-radius: 12px; }
+
+@media (min-width: 720px) {
+  .app-header { padding: 45px max(24px, calc((100vw - 1080px) / 2)) 55px; }
+  main { margin-top: -22px; padding-inline: 20px; }
+  .search-panel { padding: 18px; }
+  .results-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1000px) {
+  .results-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
