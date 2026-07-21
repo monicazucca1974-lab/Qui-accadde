@@ -212,7 +212,7 @@ function renderResults(items) {
 
   if (bounds.length) {
     bounds.push([activeCenter.lat, activeCenter.lon]);
-    map.fitBounds(bounds, { padding: [35, 35], maxZoom: 14 });
+    map.fitBounds(limiti, { padding: [35, 35], maxZoom: 17 });
   }
 }
 
