@@ -302,7 +302,7 @@ map.on("click", event => {
 });
 
 document.getElementById("infoButton")?.addEventListener("click", () => infoDialog?.showModal());
-
-infoDialog.addEventListener("click", event => {
+document.getElementById("closeDialog")?.addEventListener("click", () => infoDialog?.close());
+infoDialog?.addEventListener("click", event => {
   if (event.target === infoDialog) infoDialog.close();
 });
