@@ -197,7 +197,18 @@ function renderResults(items) {
     const marker = L.marker([item.lat, item.lon])
       .addTo(map)
       .bindPopup(`<strong>${escapeHtml(item.title)}</strong><br>${formatDistance(item.distance)} dal punto scelto`);
-    resultMarkers.push(marker);
+  marker.on("click", () => {
+  card.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+
+  card.classList.add("card-highlight");
+
+  setTimeout(() => {
+    card.classList.remove("card-highlight");
+  }, 1800);
+});  resultMarkers.push(marker);
     bounds.push([item.lat, item.lon]);
 
     showOnMap.addEventListener("click", () => {
