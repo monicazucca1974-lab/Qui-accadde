@@ -19,7 +19,8 @@ const map = L.map("map", { zoomControl: true }).setView(
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-}).addTo(map);const markers = L.markerClusterGroup();
+}).addTo(map);
+const markers = L.markerClusterGroup();
 map.addLayer(markers);
 
 let userMarker = null;
