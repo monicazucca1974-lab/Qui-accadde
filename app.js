@@ -196,7 +196,7 @@ function renderResults(items) {
     }
 
     const marker = L.marker([item.lat, item.lon])
-      .addTo(map)
+      .addTo(markers)
       .bindPopup(`<strong>${escapeHtml(item.title)}</strong><br>${formatDistance(item.distance)} dal punto scelto`);
   marker.on("click", () => {
   card.scrollIntoView({
