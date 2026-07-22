@@ -38,7 +38,7 @@ function setLoading(isLoading) {
 }
 
 function clearResultMarkers() {
-  resultMarkers.forEach(marker => map.removeLayer(marker));
+  markers.clearLayers();
   resultMarkers = [];
 }
 
