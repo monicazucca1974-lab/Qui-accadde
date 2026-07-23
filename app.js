@@ -272,7 +272,7 @@ async function explorePosition(position) {
   try {
     const items = await fetchNearbyWikipedia(position.lat, position.lon);
     allResults = items;
-    renderResults(items);
+    applyFilters();
 
     if (items.length) {
       setStatus(`Trovati ${items.length} luoghi e storie entro circa ${SEARCH_RADIUS_METERS / 1000} km.`);
