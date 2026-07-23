@@ -10,6 +10,8 @@ const locateButton = document.getElementById("locateButton");
 const searchForm = document.getElementById("searchForm");
 const searchInput = document.getElementById("searchInput");
 const infoDialog = document.getElementById("infoDialog");
+const categoryFilter = document.getElementById("categoryFilter");
+const periodFilter = document.getElementById("periodFilter");
 
 const map = L.map("map", { zoomControl: true }).setView(
   [DEFAULT_POSITION.lat, DEFAULT_POSITION.lon],
@@ -26,6 +28,7 @@ map.addLayer(markers);
 let userMarker = null;
 let resultMarkers = [];
 let activeCenter = DEFAULT_POSITION;
+let allResults = [];
 
 function setStatus(message, type = "normal") {
   statusEl.textContent = message;
@@ -238,6 +241,7 @@ async function explorePosition(position) {
 
   try {
     const items = await fetchNearbyWikipedia(position.lat, position.lon);
+    allResults = items;
     renderResults(items);
 
     if (items.length) {
