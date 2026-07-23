@@ -28,7 +28,24 @@
       <form id="searchForm" class="search-form">
         <label class="sr-only" for="searchInput">Cerca città, monumento o indirizzo</label>
         <input id="searchInput" type="search" placeholder="Cerca città, monumento o indirizzo…" autocomplete="off" />
-        <button type="submit">Cerca</button>
+        <button type="submit">Cerca</button><div class="filters">
+  <select id="categoryFilter">
+    <option value="">Tutte le categorie</option>
+    <option value="evento">Eventi</option>
+    <option value="personaggio">Personaggi</option>
+    <option value="monumento">Monumenti</option>
+    <option value="battaglia">Battaglie</option>
+  </select>
+
+  <select id="periodFilter">
+    <option value="">Tutte le epoche</option>
+    <option value="antica">Età antica</option>
+    <option value="medioevo">Medioevo</option>
+    <option value="rinascimento">Rinascimento</option>
+    <option value="moderna">Età moderna</option>
+    <option value="contemporanea">Età contemporanea</option>
+  </select>
+        </div>
       </form>
 
       <button id="locateButton" class="primary-action" type="button">
