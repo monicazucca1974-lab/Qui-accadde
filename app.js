@@ -159,6 +159,36 @@ async function fetchNearbyWikipedia(lat, lon) {
     .filter(Boolean)
     .sort((a, b) => a.distance - b.distance);
 }
+function applyFilters() {
+  const category = categoryFilter.value;
+  const period = periodFilter.value;
+
+  const filteredItems = allResults.filter(item => {
+    const text = `${item.title} ${item.description}`.toLowerCase();
+
+    const matchesCategory =
+      !category ||
+      (category === "evento" && /evento|rivolta|incendio|terremoto|epidemia|trattato/.test(text)) ||
+      (category === "personaggio" && /nato|morto|pittore|scrittore|duca|re |regina|santo|artista/.test(text)) ||
+      (category === "monumento" && /chiesa|duomo|palazzo|castello|monumento|museo|basilica|torre/.test(text)) ||
+      (category === "battaglia" && /battaglia|guerra|assedio|scontro|esercito/.test(text));
+
+    const matchesPeriod =
+      !period ||
+      (period === "antica" && /romano|romana|etrusco|greco|antichità|impero romano/.test(text)) ||
+      (period === "medioevo" && /medioevo|medievale|longobardo|carolingio|secolo xi|secolo xii|secolo xiii|secolo xiv/.test(text)) ||
+      (period === "rinascimento" && /rinascimento|secolo xv|secolo xvi|leonardo|sforza/.test(text)) ||
+      (period === "moderna" && /secolo xvii|secolo xviii|barocco|illuminismo|napoleonico/.test(text)) ||
+      (period === "contemporanea" && /secolo xix|secolo xx|secolo xxi|risorgimento|prima guerra mondiale|seconda guerra mondiale/.test(text));
+
+    return matchesCategory && matchesPeriod;
+  });
+
+  renderResults(filteredItems);
+}
+
+categoryFilter.addEventListener("change", applyFilters);
+periodFilter.addEventListener("change", applyFilters);
 
 function renderResults(items) {
   resultsEl.innerHTML = "";
