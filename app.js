@@ -161,10 +161,11 @@ async function fetchNearbyWikipedia(lat, lon) {
     .sort((a, b) => a.distance - b.distance);
 }
 async function fetchPeopleWikipedia(placeLabel, lat, lon) {
+  const cityName = placeLabel.split(",")[0].trim();
   const params = new URLSearchParams({
     action: "query",
     generator: "search",
-    gsrsearch: `"${placeLabel}" personaggio storico`,
+    gsrsearch: cityName,
     gsrnamespace: "0",
     gsrlimit: String(MAX_RESULTS),
     prop: "pageimages|extracts|info",
