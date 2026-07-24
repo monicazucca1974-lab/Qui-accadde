@@ -275,8 +275,11 @@ async function explorePosition(position) {
     allResults = items;
     applyFilters();
 
-    if (!items.length) {
-  setStatus("Nessun contenuto trovato nelle vicinanze. Prova con una città più grande.", "error");
+  
+  if (items.length) {
+    setStatus(`Mostrati ${resultCountEl.textContent} risultati filtrati su ${allResults.length}.`);
+} else {
+    setStatus("Nessun contenuto trovato nelle vicinanze. Prova con una città più grande.", "error");
 }
   } catch (error) {
     renderResults([]);
