@@ -165,7 +165,7 @@ async function fetchPeopleWikipedia(placeLabel, lat, lon) {
   const params = new URLSearchParams({
     action: "query",
     generator: "search",
-    gsrsearch: cityName,
+    gsrsearch: `incategory:"Nati a ${cityName}" OR incategory:"Morti a ${cityName}"`,
     gsrnamespace: "0",
     gsrlimit: String(MAX_RESULTS),
     prop: "pageimages|extracts|info",
