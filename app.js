@@ -275,11 +275,9 @@ async function explorePosition(position) {
     allResults = items;
     applyFilters();
 
-    if (items.length) {
-      setStatus(`Trovati ${items.length} luoghi e storie entro circa ${SEARCH_RADIUS_METERS / 1000} km.`);
-    } else {
-      setStatus("Nessun contenuto trovato nelle vicinanze. Prova con una città più grande.", "error");
-    }
+    if (!items.length) {
+  setStatus("Nessun contenuto trovato nelle vicinanze. Prova con una città più grande.", "error");
+}
   } catch (error) {
     renderResults([]);
     setStatus(error.message || "Si è verificato un errore.", "error");
