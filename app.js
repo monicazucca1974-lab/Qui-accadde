@@ -185,6 +185,7 @@ function applyFilters() {
   });
 
   renderResults(filteredItems);
+  setStatus(`Mostrati ${filteredItems.length} risultati filtrati su ${allResults.length}.`);
 }
 
 categoryFilter.addEventListener("change", applyFilters);
