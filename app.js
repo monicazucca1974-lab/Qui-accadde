@@ -213,8 +213,7 @@ function applyFilters() {
     const matchesCategory =
       !category ||
       (category === "evento" && /evento|rivolta|incendio|terremoto|epidemia|trattato/.test(text)) ||
-      (category === "personaggio" &&
-/nato|morto|re|regina|imperatore|papa|vescovo|duca|conte|principe|principessa|condottiero|generale|poeta|filosofo|scienziato|inventore|musicista|compositore|politico|pittore|artista|scrittore|architetto|santo|beato|martire|eroe/i.test(text)) ||
+(category === "personaggio") ||
       (category === "monumento" && /chiesa|duomo|palazzo|castello|monumento|museo|basilica|torre/.test(text)) ||
       (category === "battaglia" && /battaglia|guerra|assedio|scontro|esercito/.test(text));
 
