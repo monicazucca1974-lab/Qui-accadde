@@ -160,6 +160,22 @@ async function fetchNearbyWikipedia(lat, lon) {
     .filter(Boolean)
     .sort((a, b) => a.distance - b.distance);
 }
+async function geocodeLocation(name) {
+  const response = await fetch(
+    `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(name)}`
+  );
+
+  if (!response.ok) return null;
+
+  const data = await response.json();
+
+  if (!data.length) return null;
+
+  return {
+    lat: Number(data[0].lat),
+    lon: Number(data[0].lon)
+  };
+}
 async function fetchPeopleWikipedia(placeLabel, lat, lon) {
   const cityName = placeLabel.split(",")[0].trim();
   const params = new URLSearchParams({
@@ -191,17 +207,25 @@ async function fetchPeopleWikipedia(placeLabel, lat, lon) {
   const payload = await response.json();
   const pages = Object.values(payload.query?.pages || {});
 
-  return pages.map(page => ({
-    id: page.pageid,
-    title: page.title,
-    description:
-      page.extract || "Apri la voce per conoscere questo personaggio.",
-    image: page.thumbnail?.source || "",
-    url: page.fullurl || `https://it.wikipedia.org/?curid=${page.pageid}`,
-    lat,
-    lon,
-    distance: 0
-  }));
+  return await Promise.all(
+  pages.map(async page => {
+    const coords = await geocodeLocation(page.title);
+
+    return {
+      id: page.pageid,
+      title: page.title,
+      description:
+        page.extract || "Apri la voce per conoscere questo personaggio.",
+      image: page.thumbnail?.source || "",
+      url: page.fullurl || `https://it.wikipedia.org/?curid=${page.pageid}`,
+      lat: coords?.lat ?? lat,
+      lon: coords?.lon ?? lon,
+      distance: coords
+        ? distanceKm(lat, lon, coords.lat, coords.lon)
+        : 0
+    };
+  })
+);
 }
 function applyFilters() {
   const category = categoryFilter.value;
