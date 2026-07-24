@@ -29,6 +29,7 @@ let userMarker = null;
 let resultMarkers = [];
 let activeCenter = DEFAULT_POSITION;
 let allResults = [];
+let activePlaceLabel = DEFAULT_POSITION.label;
 
 function setStatus(message, type = "normal") {
   statusEl.textContent = message;
@@ -159,6 +160,48 @@ async function fetchNearbyWikipedia(lat, lon) {
     .filter(Boolean)
     .sort((a, b) => a.distance - b.distance);
 }
+async function fetchPeopleWikipedia(placeLabel, lat, lon) {
+  const params = new URLSearchParams({
+    action: "query",
+    generator: "search",
+    gsrsearch: `"${placeLabel}" personaggio storico`,
+    gsrnamespace: "0",
+    gsrlimit: String(MAX_RESULTS),
+    prop: "pageimages|extracts|info",
+    inprop: "url",
+    piprop: "thumbnail",
+    pithumbsize: "900",
+    exintro: "1",
+    explaintext: "1",
+    exsentences: "4",
+    redirects: "1",
+    origin: "*",
+    format: "json"
+  });
+
+  const response = await fetch(
+    `https://it.wikipedia.org/w/api.php?${params.toString()}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Wikipedia non è momentaneamente raggiungibile.");
+  }
+
+  const payload = await response.json();
+  const pages = Object.values(payload.query?.pages || {});
+
+  return pages.map(page => ({
+    id: page.pageid,
+    title: page.title,
+    description:
+      page.extract || "Apri la voce per conoscere questo personaggio.",
+    image: page.thumbnail?.source || "",
+    url: page.fullurl || `https://it.wikipedia.org/?curid=${page.pageid}`,
+    lat,
+    lon,
+    distance: 0
+  }));
+}
 function applyFilters() {
   const category = categoryFilter.value;
   const period = periodFilter.value;
@@ -267,6 +310,7 @@ function renderResults(items) {
 async function explorePosition(position) {
   setLoading(true);
   activeCenter = position;
+activePlaceLabel = position.label;
   setStatus(`Ricerca delle storie vicino a ${position.label}…`);
   setCenterMarker(position.lat, position.lon, position.label);
   map.setView([position.lat, position.lon], 14);
