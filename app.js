@@ -169,7 +169,7 @@ function applyFilters() {
     const matchesCategory =
       !category ||
       (category === "evento" && /evento|rivolta|incendio|terremoto|epidemia|trattato/.test(text)) ||
-      (category === "personaggio" && /nato|morto|pittore|scrittore|duca|re |regina|santo|artista/.test(text)) ||
+      (category === "personaggio" && /\bnato\b|\bmorto\b|\bpittore\b|\bscrittore\b|\bduca\b|\bre\b|\bregina\b|\bsanto\b|\bartista\b/.test(text)) ||
       (category === "monumento" && /chiesa|duomo|palazzo|castello|monumento|museo|basilica|torre/.test(text)) ||
       (category === "battaglia" && /battaglia|guerra|assedio|scontro|esercito/.test(text));
 
