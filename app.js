@@ -316,7 +316,14 @@ activePlaceLabel = position.label;
   map.setView([position.lat, position.lon], 14);
 
   try {
-    const items = await fetchNearbyWikipedia(position.lat, position.lon);
+const items =
+  categoryFilter.value === "personaggio"
+    ? await fetchPeopleWikipedia(
+        activePlaceLabel,
+        position.lat,
+        position.lon
+      )
+    : await fetchNearbyWikipedia(position.lat, position.lon);
     allResults = items;
     applyFilters();
 
