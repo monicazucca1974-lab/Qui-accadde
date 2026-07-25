@@ -228,9 +228,7 @@ async function fetchPeopleWikipedia(placeLabel, lat, lon) {
 );
 }
 function applyFilters() {
-  categoryFilter.addEventListener("change", () => {
-  explorePosition(activeCenter);
-});
+  
 
 periodFilter.addEventListener("change", applyFilters);
 
@@ -238,11 +236,17 @@ periodFilter.addEventListener("change", applyFilters);
     const text = `${item.title} ${item.description}`.toLowerCase();
 
     const matchesCategory =
-      !category ||
-      (category === "evento" && /evento|rivolta|incendio|terremoto|epidemia|trattato/.test(text)) ||
-(category === "personaggio") ||
-      (category === "monumento" && /chiesa|duomo|palazzo|castello|monumento|museo|basilica|torre/.test(text)) ||
-      (category === "battaglia" && /battaglia|guerra|assedio|scontro|esercito/.test(text));
+  !category ||
+  (category === "personaggio" && item.type === "personaggio") ||
+  (category === "evento" &&
+    item.type !== "personaggio" &&
+    /evento|rivolta|incendio|terremoto|epidemia|trattato/.test(text)) ||
+  (category === "monumento" &&
+    item.type !== "personaggio" &&
+    /chiesa|duomo|palazzo|castello|monumento|museo|basilica|torre/.test(text)) ||
+  (category === "battaglia" &&
+    item.type !== "personaggio" &&
+    /battaglia|guerra|assedio|scontro|esercito/.test(text));
 
     const matchesPeriod =
       !period ||
