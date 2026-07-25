@@ -230,7 +230,7 @@ async function fetchPeopleWikipedia(placeLabel, lat, lon) {
 function applyFilters() {
   
 
-periodFilter.addEventListener("change", applyFilters);
+
 
   const filteredItems = allResults.filter(item => {
     const text = `${item.title} ${item.description}`.toLowerCase();
