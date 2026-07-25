@@ -213,6 +213,7 @@ async function fetchPeopleWikipedia(placeLabel, lat, lon) {
 
     return {
       id: page.pageid,
+      type: "personaggio",
       title: page.title,
       description:
         page.extract || "Apri la voce per conoscere questo personaggio.",
