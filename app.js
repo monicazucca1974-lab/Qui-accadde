@@ -228,8 +228,11 @@ async function fetchPeopleWikipedia(placeLabel, lat, lon) {
 );
 }
 function applyFilters() {
-  const category = categoryFilter.value;
-  const period = periodFilter.value;
+  categoryFilter.addEventListener("change", () => {
+  explorePosition(activeCenter);
+});
+
+periodFilter.addEventListener("change", applyFilters);
 
   const filteredItems = allResults.filter(item => {
     const text = `${item.title} ${item.description}`.toLowerCase();
