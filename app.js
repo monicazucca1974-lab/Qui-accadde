@@ -207,26 +207,20 @@ async function fetchPeopleWikipedia(placeLabel, lat, lon) {
   const payload = await response.json();
   const pages = Object.values(payload.query?.pages || {});
 
-  return await Promise.all(
-  pages.map(async page => {
-    const coords = await geocodeLocation(page.title);
-
-    return {
-      id: page.pageid,
-      type: "personaggio",
-      title: page.title,
-      description:
-        page.extract || "Apri la voce per conoscere questo personaggio.",
-      image: page.thumbnail?.source || "",
-      url: page.fullurl || `https://it.wikipedia.org/?curid=${page.pageid}`,
-      lat: coords?.lat ?? lat,
-      lon: coords?.lon ?? lon,
-      distance: coords
-        ? distanceKm(lat, lon, coords.lat, coords.lon)
-        : 0
-    };
-  })
-);
+  return pages.map(page => {
+  return {
+    id: page.pageid,
+    type: "personaggio",
+    title: page.title,
+    description:
+      page.extract || "Apri la voce per conoscere questo personaggio.",
+    image: page.thumbnail?.source || "",
+    url: page.fullurl || `https://it.wikipedia.org/?curid=${page.pageid}`,
+    lat: lat,
+    lon: lon,
+    distance: 0
+  };
+});
 }
 function applyFilters() {
   
