@@ -223,7 +223,8 @@ async function fetchPeopleWikipedia(placeLabel, lat, lon) {
 });
 }
 function applyFilters() {
-  
+ const category = categoryFilter.value;
+const period = periodFilter.value; 
 
 
 
