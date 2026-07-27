@@ -359,9 +359,13 @@ const items =
 } else {
     setStatus("Nessun contenuto trovato nelle vicinanze. Prova con una città più grande.", "error");
 }
-  } catch (error) {
-    renderResults([]);
-    setStatus(error.message || "Si è verificato un errore.", "error");
+} catch (error) {
+  console.error("Errore completo:", error);
+  renderResults([]);
+  setStatus(
+    `${error.name}: ${error.message}`,
+    "error"
+  );
   } finally {
     setLoading(false);
   }
