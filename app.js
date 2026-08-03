@@ -399,7 +399,51 @@ const items =
     setLoading(false);
   }
 }
+async function loadNearbyPeople(lat, lon, placeLabel) {
+  const cityName = placeLabel.split(",")[0].trim();
 
+  const params = new URLSearchParams({
+    action: "query",
+    generator: "search",
+    gsrsearch: `"${cityName}" personaggio OR "${cityName}" biografia`,
+    gsrnamespace: "0",
+    gsrlimit: String(MAX_RESULTS),
+    prop: "pageimages|extracts|coordinates|info",
+    inprop: "url",
+    piprop: "thumbnail",
+    pithumbsize: "900",
+    exintro: "1",
+    explaintext: "1",
+    exsentences: "4",
+    redirects: "1",
+    origin: "*",
+    format: "json"
+  });
+  const response = await fetch(
+  `https://it.wikipedia.org/w/api.php?${params.toString()}`
+);
+
+if (!response.ok) return [];
+
+const payload = await response.json();
+const pages = Object.values(payload.query?.pages || {});
+
+return pages
+  .filter(page => page.coordinates?.length)
+  .map(page => ({
+  }
+  
+    id: page.pageid,
+    type: "personaggio",
+    title: page.title,
+    description: page.extract || "",
+    image: page.thumbnail?.source || "",
+    url: page.fullurl || `https://it.wikipedia.org/?curid=${page.pageid}`,
+    lat: page.coordinates[0].lat,
+    lon: page.coordinates[0].lon,
+    distance: distanceKm(lat, lon, page.coordinates[0].lat, page.coordinates[0].lon)
+  }));
+}
 locateButton.addEventListener("click", () => {
   if (!navigator.geolocation) {
     setStatus("Il tuo browser non supporta la geolocalizzazione.", "error");
