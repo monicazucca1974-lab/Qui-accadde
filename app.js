@@ -431,10 +431,11 @@ const pages = Object.values(payload.query?.pages || {});
 return pages
   .filter(page => page.coordinates?.length)
   .map(page => ({
-  }
+  
   
     id: page.pageid,
     type: "personaggio",
+  
     title: page.title,
     description: page.extract || "",
     image: page.thumbnail?.source || "",
