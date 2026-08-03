@@ -31,7 +31,7 @@ const markers = L.markerClusterGroup({
   zoomToBoundsOnClick: true,
   animate: true,
   animateAddingMarkers: true,
-  maxClusterRadius: 50
+  maxClusterRadius: 25
 });
 map.addLayer(markers);
 
