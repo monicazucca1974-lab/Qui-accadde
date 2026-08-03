@@ -191,7 +191,10 @@ async function fetchPeopleWikipedia(placeLabel, lat, lon) {
   const params = new URLSearchParams({
     action: "query",
     generator: "search",
-    gsrsearch: `incategory:"Nati a ${cityName}" OR incategory:"Morti a ${cityName}"`,
+    gsrsearch:
+  placeLabel.includes(",")
+    ? `"${placeLabel}" personaggio OR "${placeLabel}" biografia`
+    : `incategory:"Nati a ${cityName}" OR incategory:"Morti a ${cityName}"`,
     gsrnamespace: "0",
     gsrlimit: String(MAX_RESULTS),
     prop: "pageimages|extracts|info",
