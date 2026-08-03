@@ -314,28 +314,40 @@ function renderResults(items) {
       image.classList.add("is-placeholder");
     }
 
-    const marker = L.marker([item.lat, item.lon])
-      .addTo(markers)
-      .bindPopup(`<strong>${escapeHtml(item.title)}</strong><br>${formatDistance(item.distance)} dal punto scelto`);
+    if (item.type === "personaggio") {
+  showOnMap.hidden = true;
+} else {
+  const marker = L.marker([item.lat, item.lon])
+    .addTo(markers)
+    .bindPopup(
+      `<strong>${escapeHtml(item.title)}</strong><br>${formatDistance(item.distance)} dal punto scelto`
+    );
+
   marker.on("click", () => {
-  card.scrollIntoView({
-    behavior: "smooth",
-    block: "center"
+    card.scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
+
+    card.classList.add("card-highlight");
+
+    setTimeout(() => {
+      card.classList.remove("card-highlight");
+    }, 1800);
   });
 
-  card.classList.add("card-highlight");
+  resultMarkers.push(marker);
+  bounds.push([item.lat, item.lon]);
 
-  setTimeout(() => {
-    card.classList.remove("card-highlight");
-  }, 1800);
-});  resultMarkers.push(marker);
-    bounds.push([item.lat, item.lon]);
-
-    showOnMap.addEventListener("click", () => {
-      map.setView([item.lat, item.lon], 16, { animate: true });
-      marker.openPopup();
-      document.getElementById("map").scrollIntoView({ behavior: "smooth", block: "center" });
+  showOnMap.addEventListener("click", () => {
+    map.setView([item.lat, item.lon], 16, { animate: true });
+    marker.openPopup();
+    document.getElementById("map").scrollIntoView({
+      behavior: "smooth",
+      block: "center"
     });
+  });
+}
 
     card.dataset.pageId = String(item.id);
     resultsEl.appendChild(fragment);
