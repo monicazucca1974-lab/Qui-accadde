@@ -278,15 +278,13 @@ function renderResults(items) {
     const title = fragment.querySelector(".card-title");
     const description = fragment.querySelector(".card-description");
     const distance = fragment.querySelector(".distance-badge");
+    distance.hidden = item.type === "personaggio";
     const readMore = fragment.querySelector(".read-more");
     const showOnMap = fragment.querySelector(".show-on-map");
 
     title.textContent = item.title;
     description.textContent = item.description;
-    if (item.type === "personaggio") {
-  distance.style.display = "none";
-} else {
-  distance.style.display = "";
+    if (!distance.hidden) {
   distance.textContent = formatDistance(item.distance);
 }
     readMore.href = item.url;
