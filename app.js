@@ -283,7 +283,12 @@ function renderResults(items) {
 
     title.textContent = item.title;
     description.textContent = item.description;
-    distance.textContent = formatDistance(item.distance);
+    if (item.type === "personaggio") {
+  distance.style.display = "none";
+} else {
+  distance.style.display = "";
+  distance.textContent = formatDistance(item.distance);
+}
     readMore.href = item.url;
 
     if (item.image) {
