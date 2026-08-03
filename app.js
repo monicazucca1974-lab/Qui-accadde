@@ -13,7 +13,10 @@ const infoDialog = document.getElementById("infoDialog");
 const categoryFilter = document.getElementById("categoryFilter");
 const periodFilter = document.getElementById("periodFilter");
 
-const map = L.map("map", { zoomControl: true }).setView(
+const map = L.map("map", {
+  zoomControl: true,
+  zoomAnimation: true
+}).setView(
   [DEFAULT_POSITION.lat, DEFAULT_POSITION.lon],
   12
 );
@@ -22,7 +25,14 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
   attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
-const markers = L.markerClusterGroup();
+const markers = L.markerClusterGroup({
+  spiderfyOnMaxZoom: true,
+  showCoverageOnHover: false,
+  zoomToBoundsOnClick: true,
+  animate: true,
+  animateAddingMarkers: true,
+  maxClusterRadius: 50
+});
 map.addLayer(markers);
 
 let userMarker = null;
